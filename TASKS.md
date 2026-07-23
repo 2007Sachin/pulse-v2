@@ -11,12 +11,11 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 - [x] **T1.1** Auth integration: shared session with Pathwisse (decide and document mechanism first — Supabase shared session vs. token federation — before implementing). Depends on: T0.1.
 - [x] **T1.2** Event ingestion endpoint: receives Pathwisse events (certificate issued, skill card earned, sprint completed, interview verdict scored), writes to `sync_events_log`, processes into `verified_credentials` with idempotency via `source_event_id`. Depends on: T0.2.
 - [x] **T1.3** GitHub public-repo fetch service: given a username, calls GitHub's public API using Pulse v2's own server-side token, returns normalized repo list. Unit tests with mocked API responses. Depends on: T0.1.
-- [ ] **T1.4** `github-sync-worker`: scheduled job that iterates users with a `github_username` set, calls T1.3's fetch service, upserts into `cached_repos`. Depends on: T1.3, T0.2.
 - [x] **T1.4** `github-sync-worker`: scheduled job that iterates users with a `github_username` set, calls T1.3's fetch service, upserts into `cached_repos`. Depends on: T1.3, T0.2.
 
 ## Phase 2 — Candidate-facing build flow
 - [x] **T2.1** Portfolio auto-creation: on first received event for a new user (via T1.2), create a `users` row + draft `portfolio_status` if one doesn't exist. Depends on: T1.2.
-- [ ] **T2.2** Portfolio builder UI — Verified Proof tier: read-only display of `verified_credentials`, grouped by type, styled distinctly (see ARCHITECTURE.md §4). Depends on: T1.2, T0.1.
+- [x] **T2.2** Portfolio builder UI — Verified Proof tier: read-only display of `verified_credentials`, grouped by type, styled distinctly (see ARCHITECTURE.md §4). Depends on: T1.2, T0.1.
 - [ ] **T2.3** Portfolio builder UI — GitHub connect step: username input with live validation (calls T1.3), fetched repo list displayed for selection. Depends on: T1.3.
 - [ ] **T2.4** Portfolio builder UI — Featured project editor: candidate selects a repo (or adds manual entry), fills `outcome_line` + role-specific fields (form shape driven by `role_template`), writes to `featured_projects`. Depends on: T2.3, T0.2.
 - [ ] **T2.5** Portfolio builder UI — Narrative tier: short bio + career intent form, character-limited. Depends on: T0.2.

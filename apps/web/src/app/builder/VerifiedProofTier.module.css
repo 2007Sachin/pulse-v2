@@ -1,0 +1,127 @@
+/*
+ * Tier 1 — Verified Proof (ARCHITECTURE.md §4).
+ *
+ * This styling is the product's core differentiator: verified,
+ * Pathwisse-sourced facts must always read as visually distinct from
+ * anything the candidate writes themselves (Tier 2 project cards, Tier 3
+ * narrative). Do not reuse these classes for candidate-authored content —
+ * give those tiers their own, deliberately plainer, editable-looking chrome.
+ */
+
+.tier {
+  --verified-ink: #063a3a;
+  --verified-accent: #0f6b5c;
+  --verified-surface: #eefaf6;
+  --verified-border: #b7e4d8;
+
+  border: 1px solid var(--verified-border);
+  border-radius: 12px;
+  background: var(--verified-surface);
+  padding: 24px;
+}
+
+.tierHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tierBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--verified-accent);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.tierTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--verified-ink);
+}
+
+.tierSubtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--verified-accent);
+}
+
+.emptyState {
+  font-size: 14px;
+  color: var(--verified-accent);
+}
+
+.group {
+  margin-top: 24px;
+}
+
+.group:first-of-type {
+  margin-top: 0;
+}
+
+.groupTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--verified-accent);
+  margin-bottom: 10px;
+}
+
+.cardList {
+  display: grid;
+  gap: 10px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid var(--verified-border);
+  border-left: 4px solid var(--verified-accent);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--verified-ink);
+}
+
+.cardScore {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--verified-accent);
+  white-space: nowrap;
+}
+
+.cardSummary {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #384a48;
+}
+
+.cardMeta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #5b7371;
+}
+
+.checkIcon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}

@@ -2,6 +2,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import express from "express";
 import { createAuthRouter } from "./auth/router.js";
+import { createCredentialsRouter } from "./credentials/router.js";
 import { createDbPool } from "./db/pool.js";
 import { createEventsRouter } from "./events/router.js";
 import { createGitHubRouter } from "./github/router.js";
@@ -53,6 +54,14 @@ app.use(
   }),
 );
 app.use("/github", createGitHubRouter({ githubToken: githubApiToken }));
+
+app.use(
+  "/credentials",
+  createCredentialsRouter({
+    pool: dbPool,
+    sessionSecret,
+  }),
+);
 
 app.listen(port, () => {
   console.log(`api listening on port ${port}`);
