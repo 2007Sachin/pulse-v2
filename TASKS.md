@@ -11,7 +11,6 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 - [x] **T1.1** Auth integration: shared session with Pathwisse (decide and document mechanism first — Supabase shared session vs. token federation — before implementing). Depends on: T0.1.
 - [x] **T1.2** Event ingestion endpoint: receives Pathwisse events (certificate issued, skill card earned, sprint completed, interview verdict scored), writes to `sync_events_log`, processes into `verified_credentials` with idempotency via `source_event_id`. Depends on: T0.2.
 - [x] **T1.3** GitHub public-repo fetch service: given a username, calls GitHub's public API using Pulse v2's own server-side token, returns normalized repo list. Unit tests with mocked API responses. Depends on: T0.1.
-- [ ] **T1.4** `github-sync-worker`: scheduled job that iterates users with a `github_username` set, calls T1.3's fetch service, upserts into `cached_repos`. Depends on: T1.3, T0.2.
 - [x] **T1.4** `github-sync-worker`: scheduled job that iterates users with a `github_username` set, calls T1.3's fetch service, upserts into `cached_repos`. Depends on: T1.3, T0.2.
 
 ## Phase 2 — Candidate-facing build flow
@@ -23,7 +22,7 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 - [ ] **T2.6** Preview mode: renders the exact public page view within the authenticated builder, before publish. Depends on: T2.2, T2.4, T2.5.
 
 ## Phase 3 — Public page + templates
-- [ ] **T3.1** Role template engine: given `role_template`, render the correct project-card field layout per ARCHITECTURE.md §5. Build as a shared component consumed by both preview (T2.6) and public page. Depends on: T0.1.
+- [x] **T3.1** Role template engine: given `role_template`, render the correct project-card field layout per ARCHITECTURE.md §5. Build as a shared component consumed by both preview (T2.6) and public page. Depends on: T0.1.
 - [ ] **T3.2** Public portfolio page: unauthenticated route at portfolio slug, renders all three tiers using T3.1's template engine. Mobile-first layout. Depends on: T3.1, T2.6.
 - [ ] **T3.3** OG preview / share card generation for WhatsApp-optimized link previews. Depends on: T3.2.
 - [ ] **T3.4** Publish flow: draft → published state toggle, generates/confirms slug, triggers T3.3. Depends on: T3.2.
