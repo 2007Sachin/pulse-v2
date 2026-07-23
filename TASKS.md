@@ -33,7 +33,7 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 - [ ] **T4.1** Re-share prompt: on new verified credential arriving for an already-published user, surface a "your portfolio was updated" notification/prompt. Depends on: T1.2, T3.4.
 - [ ] **T4.2** Rate-limit and error handling hardening on GitHub fetch (T1.3) — respect GitHub API limits, backoff/retry, dead-letter failed syncs for manual review.
 - [ ] **T4.3** Basic analytics: portfolio view counts, share link click tracking (no PII beyond what's already public).
-- [ ] **T4.4** Admin/debug view for `sync_events_log` — surface unprocessed/errored events for manual investigation.
+- [x] **T4.4** Admin/debug view for `sync_events_log` — surface unprocessed/errored events for manual investigation.
 
 ## Explicitly deferred (do not build in v1)
 - Recruiter accounts, talent feed, or any matching/search logic
