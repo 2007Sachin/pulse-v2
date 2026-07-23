@@ -3,11 +3,13 @@ import { fetchVerifiedCredentials } from "@/lib/credentials";
 import { fetchFeaturedProjects } from "@/lib/featuredProjects";
 import { fetchNarrative } from "@/lib/narrative";
 import { fetchPublishStatus } from "@/lib/publish";
+import { fetchReshareStatus } from "@/lib/reshare";
 import { FeaturedProjectEditor } from "./FeaturedProjectEditor";
 import { NarrativeTier } from "./NarrativeTier";
 import { GitHubConnectStep } from "./GitHubConnectStep";
 import { PortfolioPreview } from "./PortfolioPreview";
 import { PublishControl } from "./PublishControl";
+import { ReSharePrompt } from "./ReSharePrompt";
 import { VerifiedProofTier } from "./VerifiedProofTier";
 import { PortfolioView } from "@/portfolio/PortfolioView";
 
@@ -18,16 +20,22 @@ export const metadata = {
 export default async function BuilderPage() {
   const cookieStore = await cookies();
   const sessionCookieValue = cookieStore.get("pulse_session")?.value;
-  const [credentials, narrative, featuredProjects, publishStatus] = await Promise.all([
+  const [credentials, narrative, featuredProjects, publishStatus, reshareStatus] = await Promise.all([
     fetchVerifiedCredentials(sessionCookieValue),
     fetchNarrative(sessionCookieValue),
     fetchFeaturedProjects(sessionCookieValue),
     fetchPublishStatus(sessionCookieValue),
+    fetchReshareStatus(sessionCookieValue),
   ]);
 
   return (
     <main style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px" }}>
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>Build your portfolio</h1>
+      <ReSharePrompt
+        initialShouldPrompt={reshareStatus.shouldPrompt}
+        newCredentialCount={reshareStatus.newCredentialCount}
+        slug={publishStatus.slug}
+      />
       <VerifiedProofTier credentials={credentials} />
       <NarrativeTier narrative={narrative} />
       <GitHubConnectStep initialGithubUsername={featuredProjects.githubUsername} />
@@ -44,7 +52,12 @@ export default async function BuilderPage() {
           narrative={narrative}
         />
       </PortfolioPreview>
-      <PublishControl initialStatus={publishStatus.status} initialSlug={publishStatus.slug} />
+      <PublishControl
+        initialStatus={publishStatus.status}
+        initialSlug={publishStatus.slug}
+        viewCount={publishStatus.viewCount}
+        shareClickCount={publishStatus.shareClickCount}
+      />
     </main>
   );
 }

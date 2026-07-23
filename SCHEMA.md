@@ -100,6 +100,15 @@ Failed per-user `github-sync-worker` runs (T4.2). Not shown to candidates — fo
 | attempts | integer | reserved for future retry tooling; worker always writes 1 |
 | resolved_at | timestamptz, nullable | null = needs manual review |
 | created_at | timestamptz | |
+## portfolio_analytics
+One row per user, created lazily on the first tracked event. Aggregate counts only — no per-viewer identifying data (IP, user agent, referrer), so there's nothing here beyond what's already public on the portfolio page.
+
+| column | type | notes |
+|---|---|---|
+| user_id | uuid, PK, FK → users.id | |
+| view_count | integer | incremented once per public portfolio page load |
+| share_click_count | integer | incremented when a visitor clicks the share button on the public page |
+| updated_at | timestamptz | |
 
 ## Notes for implementation
 - `source_event_id` on `verified_credentials` and idempotency handling in `sync_events_log` matter more than almost anything else in this schema — duplicate event delivery must not create duplicate credentials on a candidate's page.
