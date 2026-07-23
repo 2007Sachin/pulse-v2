@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { fetchPublicPortfolio } from "@/lib/portfolio";
 import { PortfolioView } from "@/portfolio/PortfolioView";
 import { getRoleTemplateLabel } from "@/role-templates/fields";
+import { ShareButton } from "./ShareButton";
+import { ViewTracker } from "./ViewTracker";
 import styles from "./page.module.css";
 
 interface PageProps {
@@ -73,6 +75,7 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
 
   return (
     <main className={styles.page}>
+      <ViewTracker slug={slug} />
       <PortfolioView
         candidateName={portfolio.candidateName}
         roleTemplate={portfolio.roleTemplate}
@@ -80,6 +83,7 @@ export default async function PublicPortfolioPage({ params }: PageProps) {
         projects={portfolio.projects}
         narrative={portfolio.narrative}
       />
+      <ShareButton slug={slug} candidateName={portfolio.candidateName} />
     </main>
   );
 }

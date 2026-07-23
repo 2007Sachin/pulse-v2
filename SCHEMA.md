@@ -88,6 +88,16 @@ Audit/debug table for the Pathwisse → Pulse v2 event pipeline. Not shown to ca
 | error | text, nullable | |
 | received_at | timestamptz | |
 
+## portfolio_analytics
+One row per user, created lazily on the first tracked event. Aggregate counts only — no per-viewer identifying data (IP, user agent, referrer), so there's nothing here beyond what's already public on the portfolio page.
+
+| column | type | notes |
+|---|---|---|
+| user_id | uuid, PK, FK → users.id | |
+| view_count | integer | incremented once per public portfolio page load |
+| share_click_count | integer | incremented when a visitor clicks the share button on the public page |
+| updated_at | timestamptz | |
+
 ## Notes for implementation
 - `source_event_id` on `verified_credentials` and idempotency handling in `sync_events_log` matter more than almost anything else in this schema — duplicate event delivery must not create duplicate credentials on a candidate's page.
 - No RLS design included here deliberately — decide this once auth mechanism (shared Supabase session vs. Cognito-federated) is locked, since the RLS approach differs significantly between the two.
