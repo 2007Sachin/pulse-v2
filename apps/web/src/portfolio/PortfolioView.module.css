@@ -1,0 +1,54 @@
+/*
+ * Public portfolio shell (Tier 1 verified + Tier 2 projects + Tier 3
+ * narrative). Shared by the builder preview (T2.6) and the public page
+ * (T3.2). Mobile-first: a single readable column.
+ */
+
+.portfolio {
+  display: grid;
+  gap: 24px;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: 800;
+  color: #16181d;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #16181d;
+  margin-bottom: 12px;
+}
+
+.projects,
+.narrative {
+  border: 1px solid #dfe3ea;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 24px;
+}
+
+.projectList {
+  display: grid;
+  gap: 16px;
+}
+
+.emptyProjects {
+  font-size: 14px;
+  color: #5c6470;
+}
+
+.bio {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #2b3138;
+}
+
+.careerIntent {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #384048;
+}

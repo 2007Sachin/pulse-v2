@@ -5,7 +5,9 @@ import { fetchNarrative } from "@/lib/narrative";
 import { FeaturedProjectEditor } from "./FeaturedProjectEditor";
 import { NarrativeTier } from "./NarrativeTier";
 import { GitHubConnectStep } from "./GitHubConnectStep";
+import { PortfolioPreview } from "./PortfolioPreview";
 import { VerifiedProofTier } from "./VerifiedProofTier";
+import { PortfolioView } from "@/portfolio/PortfolioView";
 
 export const metadata = {
   title: "Portfolio builder — Pulse v2",
@@ -31,6 +33,14 @@ export default async function BuilderPage() {
         githubUsername={featuredProjects.githubUsername}
         initialProjects={featuredProjects.projects}
       />
+      <PortfolioPreview>
+        <PortfolioView
+          roleTemplate={featuredProjects.roleTemplate}
+          credentials={credentials}
+          projects={featuredProjects.projects}
+          narrative={narrative}
+        />
+      </PortfolioPreview>
     </main>
   );
 }

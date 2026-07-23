@@ -1,4 +1,4 @@
-import { getProjectCardFields, type ProjectCardFieldDef, type RoleTemplate } from "./fields.js";
+import { getProjectCardFields, type ProjectCardFieldDef, type RoleTemplate } from "./fields";
 
 export interface ProjectCardData {
   title: string;
