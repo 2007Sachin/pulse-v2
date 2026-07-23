@@ -1,6 +1,7 @@
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import express from "express";
+import { createAdminRouter } from "./admin/router.js";
 import { createAuthRouter } from "./auth/router.js";
 import { createCredentialsRouter } from "./credentials/router.js";
 import { createDbPool } from "./db/pool.js";
@@ -20,6 +21,7 @@ const sessionSecret = process.env.SESSION_COOKIE_SECRET;
 const databaseUrl = process.env.DATABASE_URL;
 const pathwisseEventsSharedSecret = process.env.PATHWISSE_EVENTS_SHARED_SECRET;
 const githubApiToken = process.env.GITHUB_API_TOKEN;
+const adminSharedSecret = process.env.ADMIN_DEBUG_SHARED_SECRET;
 
 if (!pathwisseSharedSecret || !sessionSecret) {
   throw new Error("PATHWISSE_AUTH_SHARED_SECRET and SESSION_COOKIE_SECRET must both be set");
@@ -27,6 +29,10 @@ if (!pathwisseSharedSecret || !sessionSecret) {
 
 if (!databaseUrl || !pathwisseEventsSharedSecret) {
   throw new Error("DATABASE_URL and PATHWISSE_EVENTS_SHARED_SECRET must both be set");
+}
+
+if (!adminSharedSecret) {
+  throw new Error("ADMIN_DEBUG_SHARED_SECRET must be set");
 }
 
 const dbPool = createDbPool(databaseUrl);
@@ -107,6 +113,14 @@ app.use(
   createReshareRouter({
     pool: dbPool,
     sessionSecret,
+  }),
+);
+
+app.use(
+  "/admin",
+  createAdminRouter({
+    pool: dbPool,
+    sharedSecret: adminSharedSecret,
   }),
 );
 
