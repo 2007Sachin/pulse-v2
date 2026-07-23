@@ -116,8 +116,24 @@ p {
   border-radius: 6px;
 }
 
+/*
+ * Case study is the "deep detail" — kept collapsed by default (native
+ * <details>, no JS needed) so a scanning recruiter isn't forced to scroll
+ * past a long write-up to reach the next project.
+ */
 .project-card__case-study {
   margin-top: 12px;
+}
+
+.project-card__case-study summary {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3457d5;
+  cursor: pointer;
+}
+
+.project-card__case-study p {
+  margin-top: 8px;
   font-size: 14px;
   line-height: 1.5;
   color: #2b3138;

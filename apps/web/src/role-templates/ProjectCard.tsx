@@ -34,7 +34,12 @@ export function ProjectCard({ roleTemplate, project }: ProjectCardProps) {
           </div>
         ))}
       </dl>
-      {project.caseStudy ? <p className="project-card__case-study">{project.caseStudy}</p> : null}
+      {project.caseStudy ? (
+        <details className="project-card__case-study">
+          <summary>Read case study</summary>
+          <p>{project.caseStudy}</p>
+        </details>
+      ) : null}
     </article>
   );
 }
