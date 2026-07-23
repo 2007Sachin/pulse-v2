@@ -17,14 +17,23 @@ export interface PublicPortfolio {
  * GET /portfolio/:slug. Returns null for a missing slug OR a draft
  * portfolio — the api intentionally responds with the same 404 for both,
  * so a draft-in-progress isn't publicly reachable at its eventual URL
- * (that flip happens at publish time, T3.4).
+ * (that flip happens at publish time, T3.4). Also returns null if the api
+ * is unreachable entirely, rather than throwing: this is called from both
+ * the public page and its OG image (T3.3), and neither should crash on a
+ * transient network error — a slow/absent api should render "not found",
+ * not a 500.
  */
 export async function fetchPublicPortfolio(slug: string): Promise<PublicPortfolio | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
-  const response = await fetch(`${apiUrl}/portfolio/${encodeURIComponent(slug)}`, {
-    cache: "no-store",
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${apiUrl}/portfolio/${encodeURIComponent(slug)}`, {
+      cache: "no-store",
+    });
+  } catch {
+    return null;
+  }
 
   if (!response.ok) {
     return null;
