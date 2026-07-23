@@ -19,7 +19,7 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 - [x] **T2.3** Portfolio builder UI — GitHub connect step: username input with live validation (calls T1.3), fetched repo list displayed for selection. Depends on: T1.3.
 - [x] **T2.4** Portfolio builder UI — Featured project editor: candidate selects a repo (or adds manual entry), fills `outcome_line` + role-specific fields (form shape driven by `role_template`), writes to `featured_projects`. Depends on: T2.3, T0.2.
 - [x] **T2.5** Portfolio builder UI — Narrative tier: short bio + career intent form, character-limited. Depends on: T0.2.
-- [ ] **T2.6** Preview mode: renders the exact public page view within the authenticated builder, before publish. Depends on: T2.2, T2.4, T2.5.
+- [x] **T2.6** Preview mode: renders the exact public page view within the authenticated builder, before publish. Depends on: T2.2, T2.4, T2.5.
 
 ## Phase 3 — Public page + templates
 - [x] **T3.1** Role template engine: given `role_template`, render the correct project-card field layout per ARCHITECTURE.md §5. Build as a shared component consumed by both preview (T2.6) and public page. Depends on: T0.1.
