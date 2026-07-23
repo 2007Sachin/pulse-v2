@@ -3,7 +3,7 @@
 Ordered so each task is independently buildable and reviewable as its own PR. Read `ARCHITECTURE.md` and `SCHEMA.md` before starting any task below. Do not skip ahead to a later task before its dependencies (noted) are merged.
 
 ## Phase 0 — Scaffold
-- [ ] **T0.1** Repo scaffold: Next.js frontend app, Node backend service, shared TypeScript config, linting/formatting setup, env var structure (no secrets committed). No feature logic yet.
+- [x] **T0.1** Repo scaffold: Next.js frontend app, Node backend service, shared TypeScript config, linting/formatting setup, env var structure (no secrets committed). No feature logic yet.
 - [ ] **T0.2** Postgres schema migration implementing all tables in `SCHEMA.md`. Include seed script with 2-3 fake users across different `role_template` values for local dev/testing.
 - [ ] **T0.3** CI: basic lint + typecheck + test run on PR.
 

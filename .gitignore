@@ -1,0 +1,22 @@
+node_modules/
+.next/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# logs
+npm-debug.log*
+*.log
+
+# OS
+.DS_Store
+
+# editor
+.vscode/*
+!.vscode/extensions.json

@@ -16,3 +16,28 @@ Three tiers on every portfolio page, in order of trust:
 3. **Narrative** — short, optional, self-authored bio/context
 
 See `ARCHITECTURE.md`, `SCHEMA.md`, and `TASKS.md` for the build plan.
+
+## Repo structure
+
+npm workspaces monorepo:
+
+- `apps/web` — Next.js frontend (App Router, TypeScript)
+- `apps/api` — Node/Express backend service (TypeScript)
+- `packages/config` — shared TypeScript base config
+
+## Development
+
+```
+npm install
+cp .env.example .env
+cp apps/web/.env.example apps/web/.env.local
+cp apps/api/.env.example apps/api/.env
+
+npm run dev:web      # Next.js dev server
+npm run dev:api      # backend dev server (tsx watch)
+
+npm run lint
+npm run format:check
+npm run typecheck
+npm run build
+```
