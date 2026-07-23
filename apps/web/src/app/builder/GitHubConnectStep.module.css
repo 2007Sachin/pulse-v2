@@ -1,0 +1,137 @@
+/*
+ * Candidate-authored / interactive chrome — deliberately plainer than
+ * VerifiedProofTier.module.css's "Verified" treatment (see that file's
+ * header comment). Nothing in here should read as Pathwisse-sourced fact.
+ */
+
+.step {
+  border: 1px solid #dfe3ea;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #16181d;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #5c6470;
+}
+
+.formRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  border: 1px solid #c7ccd6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: 2px solid #3457d5;
+  outline-offset: 1px;
+}
+
+.status {
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.statusChecking {
+  color: #5c6470;
+}
+
+.statusValid {
+  color: #0f6b3c;
+}
+
+.statusInvalid {
+  color: #b3261e;
+}
+
+.connectButton {
+  border: none;
+  border-radius: 8px;
+  background: #3457d5;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.connectButton:disabled {
+  background: #b8c1e0;
+  cursor: not-allowed;
+}
+
+.connectedNote {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #0f6b3c;
+  font-weight: 600;
+}
+
+.repoList {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.repoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid #e2e5eb;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.repoCheckbox {
+  margin-top: 3px;
+}
+
+.repoName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #16181d;
+}
+
+.repoDescription {
+  margin-top: 2px;
+  font-size: 13px;
+  color: #5c6470;
+}
+
+.repoMeta {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #7a8290;
+  display: flex;
+  gap: 12px;
+}
+
+.emptyRepos {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #5c6470;
+}
+
+.selectionSummary {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #16181d;
+  font-weight: 600;
+}

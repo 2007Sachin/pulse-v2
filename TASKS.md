@@ -16,7 +16,7 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 ## Phase 2 — Candidate-facing build flow
 - [x] **T2.1** Portfolio auto-creation: on first received event for a new user (via T1.2), create a `users` row + draft `portfolio_status` if one doesn't exist. Depends on: T1.2.
 - [x] **T2.2** Portfolio builder UI — Verified Proof tier: read-only display of `verified_credentials`, grouped by type, styled distinctly (see ARCHITECTURE.md §4). Depends on: T1.2, T0.1.
-- [ ] **T2.3** Portfolio builder UI — GitHub connect step: username input with live validation (calls T1.3), fetched repo list displayed for selection. Depends on: T1.3.
+- [x] **T2.3** Portfolio builder UI — GitHub connect step: username input with live validation (calls T1.3), fetched repo list displayed for selection. Depends on: T1.3.
 - [ ] **T2.4** Portfolio builder UI — Featured project editor: candidate selects a repo (or adds manual entry), fills `outcome_line` + role-specific fields (form shape driven by `role_template`), writes to `featured_projects`. Depends on: T2.3, T0.2.
 - [x] **T2.5** Portfolio builder UI — Narrative tier: short bio + career intent form, character-limited. Depends on: T0.2.
 - [ ] **T2.6** Preview mode: renders the exact public page view within the authenticated builder, before publish. Depends on: T2.2, T2.4, T2.5.

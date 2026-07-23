@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { fetchVerifiedCredentials } from "@/lib/credentials";
 import { fetchNarrative } from "@/lib/narrative";
 import { NarrativeTier } from "./NarrativeTier";
+import { GitHubConnectStep } from "./GitHubConnectStep";
 import { VerifiedProofTier } from "./VerifiedProofTier";
 
 export const metadata = {
@@ -21,6 +22,7 @@ export default async function BuilderPage() {
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>Build your portfolio</h1>
       <VerifiedProofTier credentials={credentials} />
       <NarrativeTier narrative={narrative} />
+      <GitHubConnectStep initialGithubUsername={null} />
     </main>
   );
 }
