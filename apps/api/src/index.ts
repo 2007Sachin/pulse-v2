@@ -6,6 +6,7 @@ import { createCredentialsRouter } from "./credentials/router.js";
 import { createDbPool } from "./db/pool.js";
 import { createEventsRouter } from "./events/router.js";
 import { createGitHubRouter } from "./github/router.js";
+import { createNarrativeRouter } from "./narrative/router.js";
 
 const app = express();
 const port = process.env.PORT ?? 4000;
@@ -61,6 +62,14 @@ app.use(
 app.use(
   "/credentials",
   createCredentialsRouter({
+    pool: dbPool,
+    sessionSecret,
+  }),
+);
+
+app.use(
+  "/narrative",
+  createNarrativeRouter({
     pool: dbPool,
     sessionSecret,
   }),

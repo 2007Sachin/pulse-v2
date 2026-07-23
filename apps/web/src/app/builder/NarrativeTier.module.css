@@ -1,0 +1,85 @@
+/*
+ * Tier 3 — Narrative (ARCHITECTURE.md §4). Candidate-authored, so this is
+ * deliberately plainer and more "editable-looking" than the Verified Proof
+ * tier's chrome (see VerifiedProofTier.module.css) — a form, not a badge.
+ */
+
+.tier {
+  margin-top: 24px;
+  border: 1px solid #e2e4e9;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 24px;
+}
+
+.tierTitle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tierSubtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #5a5f6b;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #16181d;
+}
+
+.textarea,
+.input {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid #cbcfd8;
+  border-radius: 8px;
+  resize: vertical;
+}
+
+.counter {
+  align-self: flex-end;
+  font-size: 12px;
+  color: #8b8f99;
+}
+
+.saveButton {
+  align-self: flex-start;
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #16181d;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.successMessage {
+  font-size: 13px;
+  color: #0f6b5c;
+}
+
+.errorMessage {
+  font-size: 13px;
+  color: #b3261e;
+}
