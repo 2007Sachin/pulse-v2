@@ -38,7 +38,7 @@ export async function publishPortfolio(
   try {
     result = await client.query<{ portfolio_slug: string }>(
       `update users
-       set portfolio_slug = $1, portfolio_status = 'published', updated_at = now()
+       set portfolio_slug = $1, portfolio_status = 'published', last_shared_at = now(), updated_at = now()
        where id = $2
        returning portfolio_slug`,
       [slug, userId],

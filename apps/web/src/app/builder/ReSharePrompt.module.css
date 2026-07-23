@@ -1,0 +1,61 @@
+/*
+ * Re-share prompt (T4.1) — a lightweight nudge, not a form. Uses the same
+ * teal "Verified" accent as VerifiedProofTier, since what's driving this
+ * banner is new *verified* data, not a candidate edit.
+ */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid #b7e4d8;
+  border-radius: 12px;
+  background: #eefaf6;
+  padding: 16px 20px;
+  margin-top: 24px;
+}
+
+.text {
+  font-size: 14px;
+  color: #063a3a;
+}
+
+.text strong {
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.reshareLink {
+  border: none;
+  border-radius: 8px;
+  background: #0f6b5c;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dismissButton {
+  border: none;
+  background: transparent;
+  color: #0f6b5c;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 4px;
+}
+
+.dismissButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
