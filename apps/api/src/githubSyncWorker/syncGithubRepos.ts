@@ -25,6 +25,14 @@ interface UserWithGithubUsername {
   github_username: string;
 }
 
+async function insertDeadLetter(pool: Pool, userId: string, githubUsername: string, error: string): Promise<void> {
+  await pool.query(
+    `insert into github_sync_dead_letters (user_id, github_username, error)
+     values ($1, $2, $3)`,
+    [userId, githubUsername, error],
+  );
+}
+
 async function upsertRepos(client: PoolClient, userId: string, repos: NormalizedRepo[]): Promise<void> {
   await client.query("begin");
   try {
@@ -61,8 +69,10 @@ async function upsertRepos(client: PoolClient, userId: string, repos: Normalized
 /**
  * Scheduled job (T1.4): iterates every user with a `github_username` set,
  * fetches their public repos (T1.3), and upserts the results into
- * `cached_repos`. One user's GitHub API failure is caught and recorded —
- * it never blocks the rest of the batch.
+ * `cached_repos`. One user's GitHub API failure is caught, recorded in the
+ * result, and dead-lettered into `github_sync_dead_letters` for manual
+ * review — it never blocks the rest of the batch and is never silently
+ * dropped.
  */
 export async function syncGithubRepos(options: SyncGithubReposOptions): Promise<SyncGithubReposResult> {
   const { pool, githubToken } = options;
@@ -93,6 +103,16 @@ export async function syncGithubRepos(options: SyncGithubReposOptions): Promise<
       console.error(
         `github-sync-worker: failed to sync ${user.github_username} (user ${user.id}): ${message}`,
       );
+
+      try {
+        await insertDeadLetter(pool, user.id, user.github_username, message);
+      } catch (deadLetterError) {
+        console.error(
+          `github-sync-worker: failed to dead-letter ${user.github_username} (user ${user.id}): ${
+            deadLetterError instanceof Error ? deadLetterError.message : "unknown error"
+          }`,
+        );
+      }
     }
   }
 

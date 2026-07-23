@@ -103,6 +103,30 @@ describe("syncGithubRepos", () => {
     expect(
       client.query.mock.calls.some((call) => String(call[0]).includes("insert into cached_repos")),
     ).toBe(true);
+    // the failure is dead-lettered instead of silently dropped
+    const deadLetterCall = pool.query.mock.calls.find((call) =>
+      String(call[0]).includes("insert into github_sync_dead_letters"),
+    );
+    expect(deadLetterCall).toBeDefined();
+    expect(deadLetterCall?.[1]).toEqual(["user-1", "broken-user", "GitHub user not found: broken-user"]);
+  });
+
+  it("still dead-letters a failure even when the dead-letter insert itself fails", async () => {
+    const users = [{ id: "user-1", github_username: "broken-user" }];
+    const client = { query: vi.fn().mockResolvedValue({ rows: [] }), release: vi.fn() };
+    const pool = {
+      query: vi
+        .fn()
+        .mockResolvedValueOnce({ rows: users })
+        .mockRejectedValueOnce(new Error("db unreachable")),
+      connect: vi.fn().mockResolvedValue(client),
+    };
+    const fetchRepos = vi.fn().mockRejectedValue(new Error("boom"));
+
+    const result = await syncGithubRepos({ pool: pool as never, githubToken: "test-token", fetchRepos });
+
+    expect(result.usersFailed).toBe(1);
+    expect(result.failures[0]?.error).toBe("boom");
   });
 
   it("rolls back the transaction if an upsert fails partway through", async () => {
