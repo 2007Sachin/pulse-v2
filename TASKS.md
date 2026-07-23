@@ -8,7 +8,7 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 - [ ] **T0.3** CI: basic lint + typecheck + test run on PR.
 
 ## Phase 1 — Data foundations
-- [ ] **T1.1** Auth integration: shared session with Pathwisse (decide and document mechanism first — Supabase shared session vs. token federation — before implementing). Depends on: T0.1.
+- [x] **T1.1** Auth integration: shared session with Pathwisse (decide and document mechanism first — Supabase shared session vs. token federation — before implementing). Depends on: T0.1.
 - [ ] **T1.2** Event ingestion endpoint: receives Pathwisse events (certificate issued, skill card earned, sprint completed, interview verdict scored), writes to `sync_events_log`, processes into `verified_credentials` with idempotency via `source_event_id`. Depends on: T0.2.
 - [ ] **T1.3** GitHub public-repo fetch service: given a username, calls GitHub's public API using Pulse v2's own server-side token, returns normalized repo list. Unit tests with mocked API responses. Depends on: T0.1.
 - [ ] **T1.4** `github-sync-worker`: scheduled job that iterates users with a `github_username` set, calls T1.3's fetch service, upserts into `cached_repos`. Depends on: T1.3, T0.2.
