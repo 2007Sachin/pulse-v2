@@ -1,5 +1,6 @@
 import { Router } from "express";
 import type { Pool } from "pg";
+import { ensureUserForPathwisseId } from "../users/ensureUser.js";
 import { CREDENTIAL_TYPE_BY_EVENT_TYPE, parsePathwisseEvent } from "./types.js";
 
 export interface EventsRouterConfig {
@@ -53,22 +54,9 @@ export function createEventsRouter(config: EventsRouterConfig): Router {
       }
       const logId = logRow.id;
 
-      const userResult = await client.query<{ id: string }>(
-        "select id from users where pathwisse_user_id = $1",
-        [parsed.pathwisseUserId],
-      );
-
-      const userRow = userResult.rows[0];
-      if (!userRow) {
-        await client.query(
-          "update sync_events_log set error = $1, processed_at = now() where id = $2",
-          [`unknown pathwisse_user_id: ${parsed.pathwisseUserId}`, logId],
-        );
-        res.status(202).json({ status: "logged", processed: false });
-        return;
-      }
-
-      const userId = userRow.id;
+      // Auto-creates a draft `users` row if this is the first event received
+      // for this Pathwisse user (T2.1 / ARCHITECTURE.md §6, step 1).
+      const userId = await ensureUserForPathwisseId(client, parsed.pathwisseUserId);
       const credentialType = CREDENTIAL_TYPE_BY_EVENT_TYPE[parsed.eventType];
 
       const credentialResult = await client.query<{ id: string }>(
