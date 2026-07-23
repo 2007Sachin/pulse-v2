@@ -9,9 +9,10 @@
     "start": "node dist/index.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
+    "test": "vitest run",
     "db:migrate": "tsx db/migrate.ts",
     "db:seed": "tsx db/seed.ts",
-    "test": "vitest run"
+    "sync:github-repos": "tsx src/githubSyncWorker/run.ts"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
