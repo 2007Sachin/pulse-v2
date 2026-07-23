@@ -53,7 +53,10 @@ app.use(
     sharedSecret: pathwisseEventsSharedSecret,
   }),
 );
-app.use("/github", createGitHubRouter({ githubToken: githubApiToken }));
+app.use(
+  "/github",
+  createGitHubRouter({ githubToken: githubApiToken, pool: dbPool, sessionSecret }),
+);
 
 app.use(
   "/credentials",
