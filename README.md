@@ -41,3 +41,20 @@ npm run format:check
 npm run typecheck
 npm run build
 ```
+
+## Database
+
+Postgres, schema defined in `SCHEMA.md`. Migrations and seed data live under `apps/api/db`.
+
+```
+# set DATABASE_URL in apps/api/.env first (see apps/api/.env.example)
+npm run db:migrate --workspace=apps/api
+npm run db:seed --workspace=apps/api
+```
+
+## Auth
+
+Shared session with Pathwisse via token federation — see `docs/decisions/001-auth.md` for the decision
+and `apps/api/src/auth` for the implementation (`POST /auth/session`, `GET /auth/session`,
+`POST /auth/logout`). Requires `PATHWISSE_AUTH_SHARED_SECRET` and `SESSION_COOKIE_SECRET` in
+`apps/api/.env`.
