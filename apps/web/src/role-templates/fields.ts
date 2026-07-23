@@ -70,3 +70,18 @@ export function isRoleTemplate(value: string): value is RoleTemplate {
 export function getProjectCardFields(roleTemplate: RoleTemplate): ProjectCardFieldDef[] {
   return PROJECT_CARD_FIELDS_BY_ROLE_TEMPLATE[roleTemplate] ?? PROJECT_CARD_FIELDS_BY_ROLE_TEMPLATE.early_career;
 }
+
+// Display names from ARCHITECTURE.md §5's role template table. Used anywhere
+// a human-readable role label is needed (the OG share card, T3.3).
+const ROLE_TEMPLATE_LABELS: Record<RoleTemplate, string> = {
+  dev: "Software / Dev",
+  design: "Design",
+  marketing: "Marketing / Growth",
+  product: "Product / PM",
+  data: "Data / Analyst",
+  early_career: "Early-career",
+};
+
+export function getRoleTemplateLabel(roleTemplate: RoleTemplate): string {
+  return ROLE_TEMPLATE_LABELS[roleTemplate] ?? ROLE_TEMPLATE_LABELS.early_career;
+}

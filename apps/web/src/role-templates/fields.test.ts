@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getProjectCardFields, isRoleTemplate, type RoleTemplate } from "./fields.js";
+import { getProjectCardFields, getRoleTemplateLabel, isRoleTemplate, type RoleTemplate } from "./fields.js";
 
 const ALL_ROLE_TEMPLATES: RoleTemplate[] = [
   "dev",
@@ -68,5 +68,18 @@ describe("isRoleTemplate", () => {
   it("rejects unknown values", () => {
     expect(isRoleTemplate("recruiter")).toBe(false);
     expect(isRoleTemplate("")).toBe(false);
+  });
+});
+
+describe("getRoleTemplateLabel", () => {
+  it("gives every role template a non-empty display label", () => {
+    for (const roleTemplate of ALL_ROLE_TEMPLATES) {
+      expect(getRoleTemplateLabel(roleTemplate).length).toBeGreaterThan(0);
+    }
+  });
+
+  it("gives each role template a distinct label", () => {
+    const labels = ALL_ROLE_TEMPLATES.map((role) => getRoleTemplateLabel(role));
+    expect(new Set(labels).size).toBe(ALL_ROLE_TEMPLATES.length);
   });
 });
