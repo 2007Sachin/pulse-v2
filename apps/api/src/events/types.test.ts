@@ -1,3 +1,5 @@
+import assert from "node:assert/strict";
+import { test } from "vitest";
 import { describe, expect, it } from "vitest";
 import { parsePathwisseEvent } from "./types.js";
 
