@@ -5,6 +5,7 @@ import { createAuthRouter } from "./auth/router.js";
 import { createCredentialsRouter } from "./credentials/router.js";
 import { createDbPool } from "./db/pool.js";
 import { createEventsRouter } from "./events/router.js";
+import { createFeaturedProjectsRouter } from "./featuredProjects/router.js";
 import { createGitHubRouter } from "./github/router.js";
 import { createNarrativeRouter } from "./narrative/router.js";
 
@@ -70,6 +71,14 @@ app.use(
 app.use(
   "/narrative",
   createNarrativeRouter({
+    pool: dbPool,
+    sessionSecret,
+  }),
+);
+
+app.use(
+  "/featured-projects",
+  createFeaturedProjectsRouter({
     pool: dbPool,
     sessionSecret,
   }),

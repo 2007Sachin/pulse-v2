@@ -1,6 +1,8 @@
 import { cookies } from "next/headers";
 import { fetchVerifiedCredentials } from "@/lib/credentials";
+import { fetchFeaturedProjects } from "@/lib/featuredProjects";
 import { fetchNarrative } from "@/lib/narrative";
+import { FeaturedProjectEditor } from "./FeaturedProjectEditor";
 import { NarrativeTier } from "./NarrativeTier";
 import { GitHubConnectStep } from "./GitHubConnectStep";
 import { VerifiedProofTier } from "./VerifiedProofTier";
@@ -12,9 +14,10 @@ export const metadata = {
 export default async function BuilderPage() {
   const cookieStore = await cookies();
   const sessionCookieValue = cookieStore.get("pulse_session")?.value;
-  const [credentials, narrative] = await Promise.all([
+  const [credentials, narrative, featuredProjects] = await Promise.all([
     fetchVerifiedCredentials(sessionCookieValue),
     fetchNarrative(sessionCookieValue),
+    fetchFeaturedProjects(sessionCookieValue),
   ]);
 
   return (
@@ -22,7 +25,12 @@ export default async function BuilderPage() {
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>Build your portfolio</h1>
       <VerifiedProofTier credentials={credentials} />
       <NarrativeTier narrative={narrative} />
-      <GitHubConnectStep initialGithubUsername={null} />
+      <GitHubConnectStep initialGithubUsername={featuredProjects.githubUsername} />
+      <FeaturedProjectEditor
+        roleTemplate={featuredProjects.roleTemplate}
+        githubUsername={featuredProjects.githubUsername}
+        initialProjects={featuredProjects.projects}
+      />
     </main>
   );
 }
