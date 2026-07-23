@@ -25,7 +25,7 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 - [x] **T3.1** Role template engine: given `role_template`, render the correct project-card field layout per ARCHITECTURE.md §5. Build as a shared component consumed by both preview (T2.6) and public page. Depends on: T0.1.
 - [x] **T3.2** Public portfolio page: unauthenticated route at portfolio slug, renders all three tiers using T3.1's template engine. Mobile-first layout. Depends on: T3.1, T2.6.
 - [ ] **T3.3** OG preview / share card generation for WhatsApp-optimized link previews. Depends on: T3.2.
-- [ ] **T3.4** Publish flow: draft → published state toggle, generates/confirms slug, triggers T3.3. Depends on: T3.2.
+- [x] **T3.4** Publish flow: draft → published state toggle, generates/confirms slug, triggers T3.3. Depends on: T3.2.
 
 ## Phase 4 — Polish + ops
 - [ ] **T4.1** Re-share prompt: on new verified credential arriving for an already-published user, surface a "your portfolio was updated" notification/prompt. Depends on: T1.2, T3.4.

@@ -9,6 +9,7 @@ import { createFeaturedProjectsRouter } from "./featuredProjects/router.js";
 import { createGitHubRouter } from "./github/router.js";
 import { createNarrativeRouter } from "./narrative/router.js";
 import { createPortfolioRouter } from "./portfolio/router.js";
+import { createPublishRouter } from "./publish/router.js";
 
 const app = express();
 const port = process.env.PORT ?? 4000;
@@ -89,6 +90,14 @@ app.use(
   "/portfolio",
   createPortfolioRouter({
     pool: dbPool,
+  }),
+);
+
+app.use(
+  "/publish",
+  createPublishRouter({
+    pool: dbPool,
+    sessionSecret,
   }),
 );
 
