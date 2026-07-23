@@ -44,7 +44,12 @@ export default async function BuilderPage() {
           narrative={narrative}
         />
       </PortfolioPreview>
-      <PublishControl initialStatus={publishStatus.status} initialSlug={publishStatus.slug} />
+      <PublishControl
+        initialStatus={publishStatus.status}
+        initialSlug={publishStatus.slug}
+        viewCount={publishStatus.viewCount}
+        shareClickCount={publishStatus.shareClickCount}
+      />
     </main>
   );
 }

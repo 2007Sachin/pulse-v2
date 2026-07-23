@@ -1,6 +1,7 @@
 import { Router } from "express";
 import type { Pool } from "pg";
 import { requireAuth } from "../auth/middleware.js";
+import { getPortfolioAnalytics } from "../portfolio/analyticsService.js";
 import { publishPortfolio, SlugTakenError, unpublishPortfolio } from "./publishService.js";
 import { parsePublishRequest } from "./types.js";
 
@@ -42,7 +43,14 @@ export function createPublishRouter(config: PublishRouterConfig): Router {
       return;
     }
 
-    res.json({ status: user.portfolio_status, slug: user.portfolio_slug });
+    const analytics = await getPortfolioAnalytics(config.pool, user.id);
+
+    res.json({
+      status: user.portfolio_status,
+      slug: user.portfolio_slug,
+      viewCount: analytics.viewCount,
+      shareClickCount: analytics.shareClickCount,
+    });
   });
 
   router.put("/", requireAuth(config.sessionSecret), async (req, res) => {
