@@ -10,6 +10,7 @@ import { createGitHubRouter } from "./github/router.js";
 import { createNarrativeRouter } from "./narrative/router.js";
 import { createPortfolioRouter } from "./portfolio/router.js";
 import { createPublishRouter } from "./publish/router.js";
+import { createReshareRouter } from "./reshare/router.js";
 
 const app = express();
 const port = process.env.PORT ?? 4000;
@@ -96,6 +97,14 @@ app.use(
 app.use(
   "/publish",
   createPublishRouter({
+    pool: dbPool,
+    sessionSecret,
+  }),
+);
+
+app.use(
+  "/reshare",
+  createReshareRouter({
     pool: dbPool,
     sessionSecret,
   }),
