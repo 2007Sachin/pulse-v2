@@ -3,12 +3,15 @@ export type PortfolioStatus = "draft" | "published";
 export interface PublishStatus {
   status: PortfolioStatus;
   slug: string;
+  /** Basic analytics (T4.3): lifetime counts, zero until first tracked. */
+  viewCount: number;
+  shareClickCount: number;
 }
 
 // Must match SESSION_COOKIE_NAME in apps/api/src/auth/constants.ts.
 const SESSION_COOKIE_NAME = "pulse_session";
 
-const DEFAULT_STATUS: PublishStatus = { status: "draft", slug: "" };
+const DEFAULT_STATUS: PublishStatus = { status: "draft", slug: "", viewCount: 0, shareClickCount: 0 };
 
 /**
  * Fetches the signed-in candidate's publish status + current slug

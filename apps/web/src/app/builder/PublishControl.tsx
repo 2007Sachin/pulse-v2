@@ -19,9 +19,13 @@ interface PublishResponse {
 export function PublishControl({
   initialStatus,
   initialSlug,
+  viewCount,
+  shareClickCount,
 }: {
   initialStatus: PortfolioStatus;
   initialSlug: string;
+  viewCount: number;
+  shareClickCount: number;
 }) {
   const [status, setStatus] = useState<PortfolioStatus>(initialStatus);
   const [slug, setSlug] = useState(initialSlug);
@@ -113,6 +117,19 @@ export function PublishControl({
       </div>
 
       {error && <p className={styles.error}>{error}</p>}
+
+      {status === "published" && (
+        <dl className={styles.stats}>
+          <div className={styles.stat}>
+            <dt>Views</dt>
+            <dd>{viewCount}</dd>
+          </div>
+          <div className={styles.stat}>
+            <dt>Share clicks</dt>
+            <dd>{shareClickCount}</dd>
+          </div>
+        </dl>
+      )}
     </section>
   );
 }

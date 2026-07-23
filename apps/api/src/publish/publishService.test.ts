@@ -21,6 +21,7 @@ describe("publishPortfolio", () => {
     expect(result).toEqual({ status: "published", slug: "aditi-rao" });
     const [sql, params] = client.query.mock.calls[0] as [string, unknown[]];
     expect(sql).toMatch(/portfolio_status = 'published'/);
+    expect(sql).toMatch(/last_shared_at = now\(\)/);
     expect(params).toEqual(["aditi-rao", "user-1"]);
   });
 

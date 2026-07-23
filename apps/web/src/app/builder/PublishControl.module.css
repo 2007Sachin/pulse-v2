@@ -103,3 +103,29 @@
   font-size: 13px;
   color: #b3261e;
 }
+
+.stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #eceef2;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat dt {
+  font-size: 12px;
+  color: #7a8290;
+}
+
+.stat dd {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #16181d;
+}
