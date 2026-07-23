@@ -5,7 +5,7 @@ Ordered so each task is independently buildable and reviewable as its own PR. Re
 ## Phase 0 — Scaffold
 - [x] **T0.1** Repo scaffold: Next.js frontend app, Node backend service, shared TypeScript config, linting/formatting setup, env var structure (no secrets committed). No feature logic yet.
 - [x] **T0.2** Postgres schema migration implementing all tables in `SCHEMA.md`. Include seed script with 2-3 fake users across different `role_template` values for local dev/testing.
-- [ ] **T0.3** CI: basic lint + typecheck + test run on PR.
+- [x] **T0.3** CI: basic lint + typecheck + test run on PR.
 
 ## Phase 1 — Data foundations
 - [x] **T1.1** Auth integration: shared session with Pathwisse (decide and document mechanism first — Supabase shared session vs. token federation — before implementing). Depends on: T0.1.
