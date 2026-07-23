@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { fetchVerifiedCredentials } from "@/lib/credentials";
+import { GitHubConnectStep } from "./GitHubConnectStep";
 import { VerifiedProofTier } from "./VerifiedProofTier";
 
 export const metadata = {
@@ -14,6 +15,7 @@ export default async function BuilderPage() {
     <main style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px" }}>
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>Build your portfolio</h1>
       <VerifiedProofTier credentials={credentials} />
+      <GitHubConnectStep initialGithubUsername={null} />
     </main>
   );
 }
