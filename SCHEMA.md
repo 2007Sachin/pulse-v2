@@ -88,6 +88,19 @@ Audit/debug table for the Pathwisse → Pulse v2 event pipeline. Not shown to ca
 | error | text, nullable | |
 | received_at | timestamptz | |
 
+## github_sync_dead_letters
+Failed per-user `github-sync-worker` runs (T4.2). Not shown to candidates — for manual review/replay, so a sync failure never gets silently dropped.
+
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK → users.id | |
+| github_username | text | |
+| error | text | |
+| attempts | integer | reserved for future retry tooling; worker always writes 1 |
+| resolved_at | timestamptz, nullable | null = needs manual review |
+| created_at | timestamptz | |
+
 ## Notes for implementation
 - `source_event_id` on `verified_credentials` and idempotency handling in `sync_events_log` matter more than almost anything else in this schema — duplicate event delivery must not create duplicate credentials on a candidate's page.
 - No RLS design included here deliberately — decide this once auth mechanism (shared Supabase session vs. Cognito-federated) is locked, since the RLS approach differs significantly between the two.

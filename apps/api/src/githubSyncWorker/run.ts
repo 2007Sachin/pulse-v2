@@ -21,6 +21,9 @@ async function main() {
     );
     if (result.failures.length > 0) {
       console.log(JSON.stringify(result.failures, null, 2));
+      console.log(
+        `github-sync-worker: ${result.failures.length} failure(s) written to github_sync_dead_letters for manual review`,
+      );
     }
   } finally {
     await pool.end();
