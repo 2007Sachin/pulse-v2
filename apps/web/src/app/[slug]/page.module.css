@@ -1,0 +1,18 @@
+/*
+ * Public portfolio page shell. Mobile-first: base rules target a phone
+ * viewport (full-width, tight padding, no fixed max-width), since recruiters
+ * scanning a shared WhatsApp link are the primary case (ARCHITECTURE.md §1).
+ * The min-width query only adds breathing room on larger screens — nothing
+ * here should require it to look right.
+ */
+.page {
+  padding: 20px 16px 48px;
+}
+
+@media (min-width: 640px) {
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 64px;
+  }
+}

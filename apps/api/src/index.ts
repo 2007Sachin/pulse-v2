@@ -8,6 +8,7 @@ import { createEventsRouter } from "./events/router.js";
 import { createFeaturedProjectsRouter } from "./featuredProjects/router.js";
 import { createGitHubRouter } from "./github/router.js";
 import { createNarrativeRouter } from "./narrative/router.js";
+import { createPortfolioRouter } from "./portfolio/router.js";
 
 const app = express();
 const port = process.env.PORT ?? 4000;
@@ -81,6 +82,13 @@ app.use(
   createFeaturedProjectsRouter({
     pool: dbPool,
     sessionSecret,
+  }),
+);
+
+app.use(
+  "/portfolio",
+  createPortfolioRouter({
+    pool: dbPool,
   }),
 );
 
