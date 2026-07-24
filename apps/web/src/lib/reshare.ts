@@ -1,3 +1,5 @@
+import { getApiUrl } from "./apiUrl";
+
 export interface ReshareStatus {
   shouldPrompt: boolean;
   newCredentialCount: number;
@@ -21,7 +23,7 @@ export async function fetchReshareStatus(
     return NO_PROMPT;
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
 
   let response: Response;
   try {

@@ -1,3 +1,5 @@
+import { getApiUrl } from "./apiUrl";
+
 // Matches SCHEMA.md's verified_credentials.credential_type values.
 export type CredentialType = "certificate" | "skill_card" | "interview_verdict" | "sprint_completion";
 
@@ -27,7 +29,7 @@ export async function fetchVerifiedCredentials(sessionCookieValue: string | unde
     return [];
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
 
   const response = await fetch(`${apiUrl}/credentials`, {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${sessionCookieValue}` },

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import type { Pool } from "pg";
+import { timingSafeStringEqual } from "../auth/timingSafeCompare.js";
 import { getSyncEventsLog, isSyncEventsLogFilter } from "./getSyncEventsLog.js";
 
 export interface AdminRouterConfig {
@@ -16,7 +17,7 @@ export function createAdminRouter(config: AdminRouterConfig): Router {
 
   router.get("/sync-events", async (req, res) => {
     const authHeader = req.header("authorization") ?? "";
-    if (authHeader !== `Bearer ${config.sharedSecret}`) {
+    if (!timingSafeStringEqual(authHeader, `Bearer ${config.sharedSecret}`)) {
       res.status(401).json({ error: "not authenticated" });
       return;
     }

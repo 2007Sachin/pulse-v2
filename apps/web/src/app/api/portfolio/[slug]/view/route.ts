@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+import { getApiUrl } from "@/lib/apiUrl";
+
+const API_URL = getApiUrl();
 
 // Same-origin proxy so the public page's view tracker (T4.3) can ping the
 // api service without needing CORS wired up there. Unauthenticated, like

@@ -5,6 +5,7 @@ const PER_PAGE = 100;
 const MAX_RETRIES = 4;
 const BASE_BACKOFF_MS = 500;
 const MAX_BACKOFF_MS = 30_000;
+const REQUEST_TIMEOUT_MS = 10_000;
 
 export class GitHubUserNotFoundError extends Error {
   constructor(username: string) {
@@ -117,6 +118,7 @@ async function fetchPageWithRetry(
           Authorization: `Bearer ${githubToken}`,
           "X-GitHub-Api-Version": "2022-11-28",
         },
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       });
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));

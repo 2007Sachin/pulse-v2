@@ -1,4 +1,6 @@
+import type { Request } from "express";
 import { Router } from "express";
+import rateLimit from "express-rate-limit";
 import type { Pool } from "pg";
 import { requireAuth } from "../auth/middleware.js";
 import { fetchPublicRepos, GitHubApiError, GitHubUserNotFoundError } from "./githubRepoService.js";
@@ -9,27 +11,41 @@ export interface GitHubRouterConfig {
   sessionSecret: string;
 }
 
+// Unauthenticated endpoint proxying to GitHub using Pulse's own shared
+// server token (see ARCHITECTURE.md §2) — rate-limited per client IP so a
+// single caller can't exhaust Pulse's GitHub API rate-limit budget.
+const publicRepoLookupLimiter = rateLimit({
+  windowMs: 60_000,
+  limit: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 export function createGitHubRouter(config: GitHubRouterConfig): Router {
   const router = Router();
 
-  router.get("/repos/:username", async (req, res) => {
-    const { username } = req.params;
+  router.get(
+    "/repos/:username",
+    publicRepoLookupLimiter,
+    async (req: Request<{ username: string }>, res) => {
+      const { username } = req.params;
 
-    try {
-      const repos = await fetchPublicRepos(username, { githubToken: config.githubToken });
-      res.json({ repos });
-    } catch (error) {
-      if (error instanceof GitHubUserNotFoundError) {
-        res.status(404).json({ error: error.message });
-        return;
+      try {
+        const repos = await fetchPublicRepos(username, { githubToken: config.githubToken });
+        res.json({ repos });
+      } catch (error) {
+        if (error instanceof GitHubUserNotFoundError) {
+          res.status(404).json({ error: error.message });
+          return;
+        }
+        if (error instanceof GitHubApiError) {
+          res.status(502).json({ error: error.message });
+          return;
+        }
+        throw error;
       }
-      if (error instanceof GitHubApiError) {
-        res.status(502).json({ error: error.message });
-        return;
-      }
-      throw error;
-    }
-  });
+    },
+  );
 
   // Connect step (T2.3): confirms the username resolves to a real GitHub
   // user via T1.3's fetch service, then saves it onto the candidate's

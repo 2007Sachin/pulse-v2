@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { getApiUrl } from "@/lib/apiUrl";
 import type { Narrative } from "@/lib/narrative";
 
 // Must match SESSION_COOKIE_NAME in apps/api/src/auth/constants.ts.
@@ -36,7 +37,7 @@ export async function saveNarrativeAction(
     };
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
 
   const response = await fetch(`${apiUrl}/narrative`, {
     method: "PUT",
