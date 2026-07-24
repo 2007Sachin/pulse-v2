@@ -1,5 +1,6 @@
 import { Router } from "express";
 import type { Pool } from "pg";
+import { timingSafeStringEqual } from "../auth/timingSafeCompare.js";
 import { ensureUserForPathwisseId } from "../users/ensureUser.js";
 import { CREDENTIAL_TYPE_BY_EVENT_TYPE, parsePathwisseEvent } from "./types.js";
 
@@ -18,7 +19,7 @@ export function createEventsRouter(config: EventsRouterConfig): Router {
 
   router.post("/", async (req, res) => {
     const authHeader = req.header("authorization") ?? "";
-    if (authHeader !== `Bearer ${config.sharedSecret}`) {
+    if (!timingSafeStringEqual(authHeader, `Bearer ${config.sharedSecret}`)) {
       res.status(401).json({ error: "not authenticated" });
       return;
     }

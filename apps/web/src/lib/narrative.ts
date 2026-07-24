@@ -1,3 +1,5 @@
+import { getApiUrl } from "./apiUrl";
+
 // Must match apps/api/src/narrative/types.ts.
 export const BIO_MAX_LENGTH = 280;
 export const CAREER_INTENT_MAX_LENGTH = 140;
@@ -21,7 +23,7 @@ export async function fetchNarrative(sessionCookieValue: string | undefined): Pr
     return { bio: null, careerIntent: null };
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
 
   const response = await fetch(`${apiUrl}/narrative`, {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${sessionCookieValue}` },

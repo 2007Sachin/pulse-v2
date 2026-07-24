@@ -1,3 +1,5 @@
+import { getApiUrl } from "./apiUrl";
+
 export type PortfolioStatus = "draft" | "published";
 
 export interface PublishStatus {
@@ -26,7 +28,7 @@ export async function fetchPublishStatus(
     return DEFAULT_STATUS;
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
 
   const response = await fetch(`${apiUrl}/publish`, {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${sessionCookieValue}` },

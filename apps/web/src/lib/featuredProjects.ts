@@ -1,3 +1,4 @@
+import { getApiUrl } from "@/lib/apiUrl";
 import type { RoleTemplate } from "@/role-templates/fields";
 
 // Mirrors apps/api/src/featuredProjects/types.ts.
@@ -43,7 +44,7 @@ export async function fetchFeaturedProjects(
     return EMPTY;
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
 
   const response = await fetch(`${apiUrl}/featured-projects`, {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${sessionCookieValue}` },

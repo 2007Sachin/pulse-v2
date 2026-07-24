@@ -1,3 +1,4 @@
+import { getApiUrl } from "@/lib/apiUrl";
 import type { VerifiedCredential } from "@/lib/credentials";
 import type { FeaturedProject } from "@/lib/featuredProjects";
 import type { Narrative } from "@/lib/narrative";
@@ -24,7 +25,7 @@ export interface PublicPortfolio {
  * not a 500.
  */
 export async function fetchPublicPortfolio(slug: string): Promise<PublicPortfolio | null> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
 
   let response: Response;
   try {

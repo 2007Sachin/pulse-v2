@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+import { getApiUrl } from "@/lib/apiUrl";
+
+const API_URL = getApiUrl();
 // Must match SESSION_COOKIE_NAME in apps/api/src/auth/constants.ts.
 const SESSION_COOKIE_NAME = "pulse_session";
 

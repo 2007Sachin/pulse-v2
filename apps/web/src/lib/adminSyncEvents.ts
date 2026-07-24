@@ -1,3 +1,5 @@
+import { getApiUrl } from "./apiUrl";
+
 export type SyncEventsLogFilter = "attention" | "unprocessed" | "errored" | "all";
 
 export interface SyncEventLogEntry {
@@ -22,7 +24,7 @@ interface SyncEventsLogResponse {
 export async function fetchSyncEventsLog(
   filter: SyncEventsLogFilter,
 ): Promise<SyncEventLogEntry[] | null> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+  const apiUrl = getApiUrl();
   const secret = process.env.ADMIN_DEBUG_SHARED_SECRET;
 
   if (!secret) {
